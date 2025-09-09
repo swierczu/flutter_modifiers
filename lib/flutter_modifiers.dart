@@ -53,7 +53,7 @@ extension FlutterModifiers<T extends Widget> on T {
   ///    duration.
   ///  * [EdgeInsets], the class that is used to describe the padding dimensions.
   ///  * The [catalog of layout widgets](https://flutter.dev/widgets/layout/).
-  Padding padding([EdgeInsets padding]) {
+  Padding padding([EdgeInsets? padding]) {
     padding ??= EdgeInsets.all(8.0);
     return Padding(
       child: this,
@@ -80,7 +80,7 @@ extension FlutterModifiers<T extends Widget> on T {
   ///  * [Container], a convenience widget that combines common painting,
   ///    positioning, and sizing widgets.
   ///  * The [catalog of layout widgets](https://flutter.dev/widgets/layout/).
-  Center center({double widthFactor, double heightFactor}) {
+  Center center({double widthFactor = 0, double heightFactor = 0}) {
     return Center(
         child: this, widthFactor: widthFactor, heightFactor: heightFactor);
   }
@@ -280,7 +280,7 @@ extension FlutterModifiers<T extends Widget> on T {
   ///    sizes itself based on the child's size.
   ///  * [Center], a widget that centers its child within itself.
   ///  * The [catalog of layout widgets](https://flutter.dev/widgets/layout/).
-  Baseline baseline({double baseline, TextBaseline baselineType}) {
+  Baseline baseline({double baseline = 0, TextBaseline baselineType = TextBaseline.alphabetic}) {
     return Baseline(
       child: this,
       baseline: baseline,
@@ -448,7 +448,7 @@ extension FlutterModifiers<T extends Widget> on T {
   ///    paint time.
   ///  * The [catalog of layout widgets](https://flutter.dev/widgets/layout/).
   FittedBox fittedBox(
-      {BoxFit fit: BoxFit.contain, Alignment alignment: Alignment.center}) {
+      {BoxFit fit = BoxFit.contain, Alignment alignment = Alignment.center}) {
     return FittedBox(
       child: this,
       fit: fit,
@@ -471,9 +471,9 @@ extension FlutterModifiers<T extends Widget> on T {
   ///    parent.
   ///  * The [catalog of layout widgets](https://flutter.dev/widgets/layout/).
   FractionallySizedBox fractionallySizedBox(
-      {AlignmentGeometry alignment: Alignment.center,
-      double widthFactor,
-      double heightFactor}) {
+      {AlignmentGeometry alignment = Alignment.center,
+      double widthFactor = 0,
+      double heightFactor = 0}) {
     return FractionallySizedBox(
       child: this,
       alignment: alignment,
@@ -519,7 +519,7 @@ extension FlutterModifiers<T extends Widget> on T {
   /// See also:
   ///
   ///  * [The catalog of layout widgets](https://flutter.dev/widgets/layout/).
-  IntrinsicWidth intrinsicWidth({double stepWidth, double stepHeight}) {
+  IntrinsicWidth intrinsicWidth({double stepWidth = 0, double stepHeight = 0}) {
     return IntrinsicWidth(
       child: this,
       stepWidth: stepWidth,
@@ -553,7 +553,7 @@ extension FlutterModifiers<T extends Widget> on T {
   ///    specifying the height or width.
   ///  * The [catalog of layout widgets](https://flutter.dev/widgets/layout/).
   LimitedBox limitedBox(
-      {double maxWidth: double.infinity, double maxHeight: double.infinity}) {
+      {double maxWidth = double.infinity, double maxHeight = double.infinity}) {
     return LimitedBox(
       child: this,
       maxWidth: maxWidth,
@@ -605,11 +605,11 @@ extension FlutterModifiers<T extends Widget> on T {
   ///  * [SizedBox], a box with a specified size.
   ///  * The [catalog of layout widgets](https://flutter.dev/widgets/layout/).
   OverflowBox overflowBox({
-    AlignmentGeometry alignment: Alignment.center,
-    double minWidth,
-    double maxWidth,
-    double minHeight,
-    double maxHeight,
+    AlignmentGeometry alignment = Alignment.center,
+    double minWidth = 0,
+    double maxWidth = 0,
+    double minHeight = 0,
+    double maxHeight = 0,
   }) {
     return OverflowBox(
       child: this,
@@ -667,9 +667,9 @@ extension FlutterModifiers<T extends Widget> on T {
   ///    according to a given [BoxFit] discipline.
   ///  * The [catalog of layout widgets](https://flutter.dev/widgets/layout/).
   SizedBox sizedBox({
-    AlignmentGeometry alignment: Alignment.center,
-    double width,
-    double height,
+    AlignmentGeometry alignment = Alignment.center,
+    double width = 0,
+    double height = 0,
   }) {
     return SizedBox(
       child: this,
@@ -692,7 +692,7 @@ extension FlutterModifiers<T extends Widget> on T {
   ///    constraints.
   ///  * The [catalog of layout widgets](https://flutter.dev/widgets/layout/).
   SizedOverflowBox sizedOverflowBox(
-      {@required Size size, AlignmentGeometry alignment: Alignment.center}) {
+      {required Size size, AlignmentGeometry alignment = Alignment.center}) {
     return SizedOverflowBox(
       child: this,
       size: size,
@@ -740,10 +740,10 @@ extension FlutterModifiers<T extends Widget> on T {
   ///    according to a given [BoxFit] discipline.
   ///  * The [catalog of layout widgets](https://flutter.dev/widgets/layout/).
   Transform transform({
-    @required Matrix4 transform,
-    Offset origin,
-    AlignmentGeometry alignment,
-    bool transformHitTests: true,
+    required Matrix4 transform,
+    Offset? origin,
+    AlignmentGeometry? alignment,
+    bool transformHitTests = true,
   }) {
     return Transform(
       child: this,
@@ -803,7 +803,7 @@ extension FlutterModifiers<T extends Widget> on T {
   /// )
   /// ```
   /// {@end-tool}
-  Transform translate({Offset offset, bool transformHitTests = true}) {
+  Transform translate({Offset offset = const Offset(0, 0), bool transformHitTests = true}) {
     return Transform.translate(
         child: this, offset: offset, transformHitTests: transformHitTests);
   }
@@ -838,8 +838,8 @@ extension FlutterModifiers<T extends Widget> on T {
   ///  * [ScaleTransition], which animates changes in scale smoothly
   ///    over a given duration.
   Transform scale(
-      {@required double scale,
-      Offset origin,
+      {required double scale,
+      Offset? origin,
       AlignmentGeometry alignment = Alignment.center,
       bool transformHitTests = true}) {
     return Transform.scale(
@@ -862,7 +862,7 @@ extension FlutterModifiers<T extends Widget> on T {
   ///  * [ClipRRect], for a clip with rounded corners.
   ///  * [ClipPath], for an arbitrarily shaped clip.
   ClipOval clipOval(
-      {CustomClipper<Rect> clipper, Clip clipBehavior: Clip.antiAlias}) {
+      {CustomClipper<Rect>? clipper, Clip clipBehavior = Clip.antiAlias}) {
     return ClipOval(
       clipper: clipper,
       clipBehavior: clipBehavior,
@@ -887,7 +887,7 @@ extension FlutterModifiers<T extends Widget> on T {
   /// [ClipPath.shape] static method or the [ShapeBorderClipper] custom clipper
   /// class.
   ClipPath clipPath(
-      {CustomClipper<Path> clipper, Clip clipBehavior: Clip.antiAlias}) {
+      {CustomClipper<Path>? clipper, Clip clipBehavior = Clip.antiAlias}) {
     return ClipPath(clipper: clipper, clipBehavior: clipBehavior, child: this);
   }
 
@@ -931,7 +931,7 @@ extension FlutterModifiers<T extends Widget> on T {
   ///  * [ClipOval], for an elliptical clip.
   ///  * [ClipPath], for an arbitrarily shaped clip.
   ClipRect clipRect(
-      {CustomClipper<Rect> clipper, Clip clipBehavior: Clip.hardEdge}) {
+      {CustomClipper<Rect>? clipper, Clip clipBehavior = Clip.hardEdge}) {
     return ClipRect(clipper: clipper, clipBehavior: clipBehavior, child: this);
   }
 
@@ -1035,8 +1035,8 @@ extension FlutterModifiers<T extends Widget> on T {
   ///    than changing the theme all at once.
   ///  * [MaterialApp], which includes an [AnimatedTheme] widget configured via
   ///    the [MaterialApp.theme] argument.
-  Theme theme({@required ThemeData data, bool isMaterialAppTheme: false}) {
+  Theme theme({required ThemeData data, bool isMaterialAppTheme = false}) {
     return Theme(
-        child: this, data: data, isMaterialAppTheme: isMaterialAppTheme);
+        child: this, data: data);
   }
 }
